@@ -74,6 +74,7 @@ export default {
           this.columns.push({ text: folderName, value: folderName });
         }
       })
+      console.log('this.imgObj', this.imgObj);
     },
     showImg(index) {
       showImagePreview({

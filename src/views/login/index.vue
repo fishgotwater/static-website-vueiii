@@ -39,7 +39,6 @@ const userStore = useUserStore()
 const router = useRouter();
 
 const onSubmit = (values) => {
-  console.log('submit', values);
   const user = usersData.find(item => item.name === values.username);
   if (values.username && user && values.password === user.date) {
     userStore.initImages()
