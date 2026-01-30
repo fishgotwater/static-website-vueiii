@@ -1,0 +1,1 @@
+const a=[{id:1,name:"yyitong",address:"",date:""},{id:2,name:"dxiaoqin",address:"",date:""},{id:3,name:"grong",address:"",date:"20260117"}];export{a as u};

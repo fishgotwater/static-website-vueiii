@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', {
     },
     initImages() {
       //递归匹配users/*/images下的所有图片.{png,jpg,jpeg}
-      this.images = import.meta.glob('/public/users/**/images/**/*', {
+      this.images = import.meta.glob('/users/**/images/**/*', {
         eager: true,
         as: 'url',
       })
