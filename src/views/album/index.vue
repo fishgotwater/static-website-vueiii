@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     getImages() {
-      const pathPrefix = `/users/${this.user}/images/`;
+      const pathPrefix = `/src/assets/users/${this.user}/images/`;
       const store = useUserStore()
       const { images } = store;
       const target = Object.entries(images).filter(([path, url]) => path.startsWith(pathPrefix))

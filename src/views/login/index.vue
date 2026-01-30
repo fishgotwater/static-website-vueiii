@@ -7,7 +7,7 @@
         <van-field v-model="password" type="password" name="password" label="密码" placeholder="请输入密码"
           :rules="[{ required: true, message: '请输入密码' }]" />
       </van-cell-group>
-      <div style="margin: 16px;">
+      <div class="btnWrapper">
         <van-button round block type="primary" native-type="submit">
           提交
         </van-button>
@@ -15,14 +15,22 @@
     </van-form>
     <van-dialog v-model:show="show" title="温馨提示" message="用户名或密码错误，请稍后再试。"></van-dialog>
   </div>
-
+  <van-overlay :show="visible" @click="visible = false">
+    <div class="loginWrapper">
+      <van-loading vertical color="#f50057" text-color="#969799">
+        <template #icon>
+          <van-icon name="like-o" size="30" />
+        </template>
+        登录中...
+      </van-loading>
+    </div>
+  </van-overlay>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import usersData from '@/data/users.json';
-import { useUserStore } from '@/stores/user'
 /**
  * @description: 登录表单
  * 登录状态 sessionStorage 存储 token
@@ -35,18 +43,19 @@ import { useUserStore } from '@/stores/user'
 const username = ref('');
 const password = ref('');
 const show = ref(false);
-const userStore = useUserStore()
+const visible = ref(false);
 const router = useRouter();
 
 const onSubmit = (values) => {
+  visible.value = true;
   const user = usersData.find(item => item.name === values.username);
   if (values.username && user && values.password === user.date) {
-    userStore.initImages()
     sessionStorage.setItem('userName', values.username);
     sessionStorage.setItem('isLoggedIn', values.password);
     router.push({ path: `/album/${values.username}`, replace: true })
   } else {
     show.value = true;
+    visible.value = false;
   }
 }
 </script>
@@ -58,5 +67,10 @@ const onSubmit = (values) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 10vh;
+}
+
+.btnWrapper {
+  margin: 28px 16px 0 16px;
 }
 </style>
